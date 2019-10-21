@@ -1,4 +1,4 @@
-FROM python3.7-alphine
+FROM python:3.7-alpine
 MAINTAINER eyakubsorkar
 
 ENV PYTHONUNBUFFERED 1

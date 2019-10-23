@@ -10,6 +10,7 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps \
 
 RUN pip install -r /requirements.txt
 RUN apk del .tmp-build-deps
+RUN apk update
 RUN mkdir /src
 WORKDIR /src
 COPY ./src /src

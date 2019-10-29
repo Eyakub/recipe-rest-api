@@ -1,16 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-    PermissionsMixin
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
+from django.conf import settings
 
 
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         """ creates and saves a new user """
         if not email:
-            raise ValueError('User must have email address')
+            raise ValueError("User must have email address")
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
-        user.save(using=self._db)   # for multiple database
+        user.save(using=self._db)  # for multiple database
 
         return user
 
@@ -34,4 +38,22 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
+
+
+class Tag(models.Model):
+    """Tag to be used for a recipe."""
+
+    # TODO: Define fields here
+    name = models.CharField(max_length=250)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,)
+
+    class Meta:
+        """Meta definition for Tag."""
+
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
+
+    def __str__(self):
+        """Unicode representation of Tag."""
+        return self.name

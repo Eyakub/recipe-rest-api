@@ -123,6 +123,7 @@ class PrivateRecipeApiTests(TestCase):
             "price": 20.00,
         }
         res = self.client.post(RECIPES_URL, payload)
+        
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         recipe = Recipe.objects.get(id=res.data["id"])
         tags = recipe.tags.all()

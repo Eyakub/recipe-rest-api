@@ -130,3 +130,4 @@ STATIC_ROOT = "/vol/web/static/"
 
 AUTH_USER_MODEL = "core.User"
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
